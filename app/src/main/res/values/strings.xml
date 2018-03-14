@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">FinalProject</string>
+    <string name="txt_user">Usuario</string>
+    <string name="txt_password">Contraseña</string>
+    <string name="txt_document">Número documento</string>
+    <string name="txt_rep_password">Repetir contraseña</string>
+    <string name="txt_email">Correo electronico</string>
+    <string name="txt_phone">Telefono</string>
+    <string name="txt_description">Breve descripción de tús habilidades</string>
+    <string name="btn_login">Ingresar</string>
+    <string name="btn_register">Registrar</string>
+    <string name="img_header">App ubicación de docentes</string>
+    <string name="register_title">Registro</string>
+    <string name="main_title">Menú principal</string>
+    <string name="class_title">Solicitar clase</string>
+</resources>

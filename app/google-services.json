@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "877734818732",
+    "firebase_url": "https://final-project-3fa38.firebaseio.com",
+    "project_id": "final-project-3fa38",
+    "storage_bucket": "final-project-3fa38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:877734818732:android:9ee2ea39f6f4f62f",
+        "android_client_info": {
+          "package_name": "co.edu.usbcali.finalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "877734818732-s53fd2me8e27ns3t738mrhhkak76d179.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPgNye2A4daLYA4Of8s8iHCLOiSyA5VBs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
