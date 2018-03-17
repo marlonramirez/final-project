@@ -14,6 +14,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import co.edu.usbcali.finalproject.model.Teacher;
 import co.edu.usbcali.finalproject.model.Type;
@@ -32,7 +36,7 @@ public class TeacherAccess extends Validation {
         return instance;
     }
 
-    public void create(Type documentType, String document, String password, String password2, Type specialization, String description, String fee, String experience, String email, Bitmap image) throws Exception {
+    public void create(Type documentType, String document, String password, String password2, Type specialization, String description, String fee, String experience, String email, Bitmap image, String curriculumPath) throws Exception {
         Teacher teacher = new Teacher();
         teacher.setDocumentType(documentType.getCode());
         teacher.setSpecialization(specialization.getCode());
@@ -41,6 +45,9 @@ public class TeacherAccess extends Validation {
         teacher.setEmail(email);
         if (image == null) {
             throw new Exception("Por favor tome una foto para su perfil");
+        }
+        if (curriculumPath == null) {
+            throw new Exception("Por favor seleccione un archivo para subir como hoja de vida");
         }
         if (description == null || description.isEmpty()) {
             throw new Exception("Por favor digite una breve descripción de su persona");
@@ -60,6 +67,25 @@ public class TeacherAccess extends Validation {
         DatabaseReference databaseReference = firebaseDatabase.getReference("teachers");
         databaseReference.child(teacher.getDocument()).setValue(teacher);
         storagePhoto(document, image);
+        storageCurriculum(curriculumPath, document);
+    }
+
+    private void storageCurriculum(String path, String document) throws Exception {
+        InputStream stream = new FileInputStream(new File(path));
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance("gs://final-project-3fa38.appspot.com");
+        StorageReference storageReference = firebaseStorage.getReference();
+        StorageReference mountainsRef = storageReference.child("curriculums/" + document);
+        UploadTask uploadTask = mountainsRef.putStream(stream);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.e("Error", "Error subiendo la hoja de vida");
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            }
+        });
     }
 
     private void storagePhoto(String document, Bitmap photo) {
@@ -82,6 +108,5 @@ public class TeacherAccess extends Validation {
                 Log.i("Info", "Se almaceno con exito");
             }
         });
-
     }
 }

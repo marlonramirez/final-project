@@ -2,6 +2,7 @@ package co.edu.usbcali.finalproject;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -34,6 +35,7 @@ import co.edu.usbcali.finalproject.domain.StudentAccess;
 import co.edu.usbcali.finalproject.domain.TeacherAccess;
 import co.edu.usbcali.finalproject.model.Type;
 import co.edu.usbcali.finalproject.util.MessageDialog;
+import in.gauriinfotech.commons.Commons;
 
 /**
  * Created by Marlon.Ramirez on 11/03/2018.
@@ -60,10 +62,13 @@ public class RegisterActivity extends FragmentActivity {
     private Type selectedDocumentType;
     private Type selectedPaymentType;
     private Type selectedSpecialization;
+    private String selectedFilePath;
     private Bitmap photo;
     private static final int REQUEST_CODE;
+    private static final int PICK_FILE_REQUEST;
     static {
         REQUEST_CODE = 1888;
+        PICK_FILE_REQUEST = 1999;
     }
 
     @Override
@@ -99,6 +104,13 @@ public class RegisterActivity extends FragmentActivity {
         }
     }
 
+    public void loadCurriculum(View view) {
+        Intent intent = new Intent();
+        intent.setType("*/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"Choose File to Upload.."),PICK_FILE_REQUEST);
+    }
+
     public void register(View view) {
         String email = txtEmail.getText().toString();
         String document = txtDocument.getText().toString();
@@ -116,7 +128,8 @@ public class RegisterActivity extends FragmentActivity {
                         txtFee.getText().toString(),
                         txtExperience.getText().toString(),
                         email,
-                        photo
+                        photo,
+                        selectedFilePath
                 );
             } else {
                 StudentAccess.getInstance().create(
@@ -132,11 +145,7 @@ public class RegisterActivity extends FragmentActivity {
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
             if (firebaseUser != null) {
-                Log.i("Info", "El correo del usuario es " + firebaseUser.getEmail());
-                Intent intent = new Intent();
-                intent.setClass(this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                showMessage("Usuario ya creado");
             }
             firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
@@ -243,6 +252,9 @@ public class RegisterActivity extends FragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE && data != null && data.getExtras() != null && data.getExtras().get("data") != null) {
             photo = (Bitmap) data.getExtras().get("data");
+        } else if (requestCode == PICK_FILE_REQUEST && data != null) {
+            Uri fileUri = data.getData();
+            selectedFilePath = Commons.getPath(fileUri, this);
         }
     }
 

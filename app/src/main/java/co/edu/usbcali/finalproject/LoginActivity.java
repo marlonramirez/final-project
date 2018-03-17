@@ -1,11 +1,16 @@
 package co.edu.usbcali.finalproject;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -16,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
     private EditText txtUser;
     private EditText txtPassword;
+    private ImageView imgMain;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -25,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         txtUser = findViewById(R.id.txt_user);
         txtPassword = findViewById(R.id.txt_password);
+        imgMain = findViewById(R.id.img_header);
+        animate();
     }
 
     public void openRegister(View view) {
@@ -53,6 +61,26 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void animate() {
+        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(imgMain, "alpha",  1f, .3f);
+        fadeOut.setDuration(2000);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(imgMain, "alpha", .3f, 1f);
+        fadeIn.setDuration(2000);
+
+        final AnimatorSet mAnimationSet = new AnimatorSet();
+
+        mAnimationSet.play(fadeIn).after(fadeOut);
+
+        mAnimationSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                mAnimationSet.start();
+            }
+        });
+        mAnimationSet.start();
     }
 
     private void showMessage(String message) {
