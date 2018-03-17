@@ -7,6 +7,8 @@
     <string name="txt_email">Correo electronico</string>
     <string name="txt_phone">Telefono</string>
     <string name="txt_description">Breve descripción de tús habilidades</string>
+    <string name="txt_fee">Honorarios</string>
+    <string name="txt_experience">Horas de experiencia</string>
     <string name="btn_login">Ingresar</string>
     <string name="btn_register">Registrar</string>
     <string name="img_header">App ubicación de docentes</string>

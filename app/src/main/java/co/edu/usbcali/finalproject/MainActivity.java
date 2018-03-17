@@ -66,7 +66,11 @@ public class MainActivity extends FragmentActivity {
             {
                 Teacher selected = teachers.get(position);
                 Intent intent = new Intent(view.getContext(), ClassActivity.class);
-                intent.putExtra("productId", selected.getDocument());
+                Bundle bundle = new Bundle();
+                bundle.putString("document", selected.getDocument());
+                bundle.putDouble("latitude", selected.getLatitude());
+                bundle.putDouble("longitude", selected.getLongitude());
+                intent.putExtra("teacher", bundle);
                 startActivity(intent);
             }
         });

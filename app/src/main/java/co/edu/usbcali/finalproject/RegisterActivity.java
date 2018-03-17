@@ -55,6 +55,8 @@ public class RegisterActivity extends FragmentActivity {
     private EditText txtPhone;
     private EditText txtDescription;
     private EditText txtEmail;
+    private EditText txtFee;
+    private EditText txtExperience;
     private Type selectedDocumentType;
     private Type selectedPaymentType;
     private Type selectedSpecialization;
@@ -78,6 +80,8 @@ public class RegisterActivity extends FragmentActivity {
         txtRepPassword = findViewById(R.id.txt_rep_password);
         txtPhone = findViewById(R.id.txt_phone);
         txtDescription = findViewById(R.id.txt_description);
+        txtFee = findViewById(R.id.txt_fee);
+        txtExperience = findViewById(R.id.txt_experience);
         txtEmail = findViewById(R.id.txt_email);
         swType = findViewById(R.id.sw_type);
         loadDocumentTypes();
@@ -109,6 +113,8 @@ public class RegisterActivity extends FragmentActivity {
                         password2,
                         selectedSpecialization,
                         txtDescription.getText().toString(),
+                        txtFee.getText().toString(),
+                        txtExperience.getText().toString(),
                         email,
                         photo
                 );

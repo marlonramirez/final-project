@@ -1,11 +1,15 @@
 package co.edu.usbcali.finalproject;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.google.firebase.database.DataSnapshot;
@@ -27,13 +31,45 @@ public class ClassActivity extends FragmentActivity {
     private List<Type> modalities;
     private Spinner spnModality;
     private Type selectedModality;
+    private ImageView imgStudent;
+    private Bitmap photo;
+    private static final int REQUEST_CODE;
+    static {
+        REQUEST_CODE = 1888;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class);
         spnModality = findViewById(R.id.spn_modality);
+        imgStudent = findViewById(R.id.img_student);
         loadModalities();
+    }
+
+    public void save(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void watchMap(View view) {
+        Intent intent = new Intent(this, MapActivity.class);
+        Bundle extras = getIntent().getExtras().getBundle("teacher");
+        intent.putExtra("teacher", extras);
+        startActivity(intent);
+    }
+
+    public void accessCamera(View view) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE && data != null && data.getExtras() != null && data.getExtras().get("data") != null) {
+            photo = (Bitmap) data.getExtras().get("data");
+            imgStudent.setImageBitmap(photo);
+        }
     }
 
     private void loadModalities() {

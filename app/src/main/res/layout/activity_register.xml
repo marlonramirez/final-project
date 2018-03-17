@@ -178,6 +178,14 @@
                         android:layout_height="wrap_content"
                         android:onClick="accessCamera"
                         android:src="@drawable/ic_camera" />
+
+                    <EditText
+                        android:id="@+id/txt_experience"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/txt_experience"
+                        android:inputType="number" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -190,6 +198,14 @@
                         android:id="@+id/spn_specialization"
                         android:layout_width="match_parent"
                         android:layout_height="48dp" />
+
+                    <EditText
+                        android:id="@+id/txt_fee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/txt_fee"
+                        android:inputType="number" />
                 </LinearLayout>
 
             </LinearLayout>

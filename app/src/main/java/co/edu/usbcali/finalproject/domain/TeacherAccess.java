@@ -32,7 +32,7 @@ public class TeacherAccess extends Validation {
         return instance;
     }
 
-    public void create(Type documentType, String document, String password, String password2, Type specialization, String description, String email, Bitmap image) throws Exception {
+    public void create(Type documentType, String document, String password, String password2, Type specialization, String description, String fee, String experience, String email, Bitmap image) throws Exception {
         Teacher teacher = new Teacher();
         teacher.setDocumentType(documentType.getCode());
         teacher.setSpecialization(specialization.getCode());
@@ -46,6 +46,14 @@ public class TeacherAccess extends Validation {
             throw new Exception("Por favor digite una breve descripción de su persona");
         }
         teacher.setDescription(description);
+        if (fee == null || fee.isEmpty()) {
+            throw new Exception("Por favor digite el dinero que solicita por hora");
+        }
+        teacher.setFee(Long.parseLong(fee));
+        if (experience == null || experience.isEmpty()) {
+            throw new Exception("Por favor digite las horas de experiencia actual");
+        }
+        teacher.setExperience(Long.parseLong(experience));
         teacher.setLatitude(3.3441);
         teacher.setLongitude(-76.5435);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();

@@ -73,9 +73,9 @@ public class TeacherAdapter extends BaseAdapter {
         TextView description = convertView.findViewById(R.id.txt_description);
         description.setText(teacher.getDescription());
         TextView payment = convertView.findViewById(R.id.txt_payment);
-        payment.setText("$15000");
+        payment.setText("$" + teacher.getFee());
         TextView time = convertView.findViewById(R.id.txt_time);
-        time.setText("12000");
+        time.setText(teacher.getExperience() + "");
         ImageView imageView = convertView.findViewById(R.id.img_perfil);
         queryImage(imageView, teacher.getDocument());
         return convertView;

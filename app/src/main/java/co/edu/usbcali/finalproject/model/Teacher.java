@@ -10,6 +10,8 @@ public class Teacher {
     private String specialization;
     private String description;
     private String email;
+    private long experience;
+    private long fee;
     private double latitude;
     private double longitude;
 
@@ -51,6 +53,22 @@ public class Teacher {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public long getExperience() {
+        return experience;
+    }
+
+    public void setExperience(long experience) {
+        this.experience = experience;
+    }
+
+    public long getFee() {
+        return fee;
+    }
+
+    public void setFee(long fee) {
+        this.fee = fee;
     }
 
     public double getLatitude() {
